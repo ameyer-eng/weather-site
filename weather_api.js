@@ -1,14 +1,15 @@
 fetchweatherJSON = async function fetchweatherJSON() {
-    const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current_weather=true&hourly=temperature_2m,relativehumidity_2m,windspeed_10m');
+    const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=36.1006&longitude=95.9251&current_weather=true&hourly=temperature_2m,relativehumidity_2m,windspeed_10m');
     const weather = await response.json();
     return weather;
   }
 
-format_weather_data =  async function format_weather_data(weather_json){
+format_weather_data =  function format_weather_data(weather_json){
     let times = weather_json.hourly.time;
     let winds = weather_json.hourly.windspeed_10m;
     let humiditys = weather_json.hourly.relativehumidity_2m;
     let temps = weather_json.hourly.temperature_2m;
+    console.log(weather_json.hourly_units);
 
 
     let day_indexs = index_by_day(times);
@@ -18,13 +19,10 @@ format_weather_data =  async function format_weather_data(weather_json){
     return days_w_humidity;
   }
 
+  
+  
   module.exports = {fetchweatherJSON, format_weather_data};
  
-
-  // fetchweatherJSON().then(weather => {
-  //   let data =  format_weather_data(weather); 
-  //   return data;
-  //  });
 
    //this function should return an array of objects {'date': XXXXXXX, index_array[]}
    // This will be used to group the API returned data by day
@@ -84,9 +82,9 @@ format_weather_data =  async function format_weather_data(weather_json){
             day_temp_list.push(temperatures[index]);
         }
 
-        day_high = Math.max.apply(Math, day_temp_list);
-        day_low  = Math.min.apply(Math, day_temp_list);
-        day_avg  = average(day_temp_list);
+        day_high = c_to_f(Math.max.apply(Math, day_temp_list)).toFixed(0);
+        day_low  = c_to_f(Math.min.apply(Math, day_temp_list)).toFixed(0);
+        day_avg  = c_to_f(average(day_temp_list)).toFixed(0);
 
         //add to the object
         day['t-high'] = day_high;
@@ -107,9 +105,9 @@ format_weather_data =  async function format_weather_data(weather_json){
             day_wind_list.push(winds[index]);
         }
 
-        day_high = Math.max.apply(Math, day_wind_list);
-        day_low  = Math.min.apply(Math, day_wind_list);
-        day_avg  = average(day_wind_list);
+        day_high = (Math.max.apply(Math, day_wind_list)/1.609).toFixed(0);
+        day_low  = (Math.min.apply(Math, day_wind_list)/1.609).toFixed(0);
+        day_avg  = (average(day_wind_list)/1.609).toFixed(0);
        // console.log(temperatures);
         //console.log(`high: ${day_high}, low: ${day_low}, avg: ${day_avg}`);
         //add to the object
@@ -150,4 +148,8 @@ format_weather_data =  async function format_weather_data(weather_json){
       var avg = total / arr.length;
 
       return avg;
+   }
+
+   function c_to_f(temp){
+    return (9/5)*temp + 32;
    }

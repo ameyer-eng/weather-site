@@ -2,7 +2,7 @@
       body {
         text-align: center;
         font-size: 1.5em;
-        padding: 50px;
+        padding: 1%;
         font: "Lucida Grande", Helvetica, Arial, sans-serif;
       }
       
@@ -17,19 +17,42 @@
       li:hover {
         background-color: aquamarine;
       }
+
+      th{
+        padding-left: 2px;
+      }
+
+      td {
+  
+        padding-left: 5%;
+        padding-right: 0%;
+        white-space: nowrap;
+      }
+
+      tr{
+        padding-left: 10%;
+      }
+
+      table{
+        width: 80%;
+      }
       
       .day-container-dark{
         background-color: midnightblue;
+        color: whitesmoke;   
+        padding: 2px;
+        margin-top: 30px;   
+        max-height: 90%; 
       }
 
-      .day-container-light{
-        background-color: forestgreen;
-
-      }
+   
 
       .forecast-container-dark{
         background-color: rgb(30, 1, 77);
+        padding: 2em;
       }
+      
+   
  
 
 

@@ -1,0 +1,27 @@
+<h1>Weather</h1>
+{{>navbar}}
+
+<div class="forecast-container-dark">
+
+{{#each day}}
+<div class= 'day-container-dark'>
+<table>
+<th>Day: {{this.day}}</th>
+    <tr>
+        <td>Temperature:</td>
+        <td>{{this.t-high}}&deg;F</td>
+        <td>{{this.t-avg}}&deg;F</td>
+        <td>{{this.t-low}}&deg;F</td>
+    </tr> 
+        <tr>
+        <td>Wind:</td>
+        <td>{{this.w-high}} MPH</td>
+        <td>{{this.w-avg}} MPH</td>
+        <td>{{this.w-low}} MPH</td>
+    </tr>                       
+</table>
+</div>
+{{/each}}
+
+</div>
+

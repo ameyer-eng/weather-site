@@ -12,8 +12,8 @@ const app = express();
 
 
 const indexRouter = require('./routes/index');
-const chemical= require('./routes/chemicals');
-const breeds = require('./routes/breeds');
+
+const weatherRouter = require('./routes/weather');
 const images = require('./routes/images');
 
 // view engine setup
@@ -28,8 +28,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/chemical', chemical);
-app.use('/breeds', breeds);
+app.use('/weather', weatherRouter);
 app.use('/images', images);
 
 // catch 404 and forward to error handler
