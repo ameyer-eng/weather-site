@@ -6,12 +6,14 @@
  
   //let dog_json;
   fetchweatherJSON().then(weather => {
-   weather; // fetched weather
-     //console.log(weather);
+      weather; // fetched weather
+      let times = weather.hourly.time;
+      let day_indexs = index_by_day(times);
      
      console.log(Object.keys(weather));
-     console.log(weather.hourly.time[0]);
-     console.log(weather.hourly.time[66]);
+    // console.log(weather.hourly.time[0].substring(8,10));
+     //console.log(weather.hourly.time[66]);
+     console.log(day_indexs);
 
    });
 
@@ -25,28 +27,50 @@
    
    function index_by_day(times){
     
-    let last_day = null; //for starting
-    for(const i =0; i<times.length; i++){
-      //extract the day from the current item
+      let last_day = null; //for starting
+      let  day_index_arr = [];
+      let  index_arr = [];
+      //let  day_index_obj = {'day': null,  'indexs': []};
 
-      //if the day is different start a new array and push the old array onto the return arrays/object...
+      for(let i =0; i<times.length; i++){
+          //extract the day from the current item
+          let current_day = times[i].substring(8,10);
+          //if the day is different start a new array and push the old array onto the return arrays/object...
+          if(last_day===null){
+                //to deal with the start of the loop            
+               last_day = current_day;
+          }else if (current_day != last_day){
+              //push the last object into the array
+              day_index_arr.push(index_arr);
+              //re-initialize the object for the new day
+              index_arr = [];
+              last_day = current_day;
+          }else if (current_day === last_day){
+              //add the index to the day index object
+              index_arr.push(i)
+          }else{
+              //some sort of error occured
+              console.log(`Error at day ${current_day} at date-time ${times[i]} at index ${i}.`)
+        }
 
-      //if the day is the same skip...
+      }//end for
+    
+    return day_index_arr;
 
-      //if error throw a useful message
-    }
+   }// end index_by_day
 
-   }
+
+
 
    //appends the json data with   {'date' xxxxxx, index_array[], t-hi: [XX, time],  t-low: [XX, time], t-avg:}
-   function hi_low_avg(day array of objects){}
+   //function hi_low_avg(day array of objects){}
 
     //appends the json data with   {'date' xxxxxx, index_array[], t-hi: [XX, time],  t-low: [XX, time], t-avg:
      //                                                             w-hi: [XX, time],  w-low: [XX, time], w-avg:                                              }
-    function average_windspeed(day array of objects){} 
+   // function average_windspeed(day array of objects){} 
 
     //appends the average humidity to the JSON objects in the array
-    function average_humidity(){}
+    //function average_humidity(){}
 
 
    
