@@ -1,0 +1,12 @@
+<!-- Page Content -->
+<div>
+     <h1>{{title}}</h1>
+    {{>navbar}}
+    <hr>
+    {{#if images}}
+    {{#each images}}
+            <img src="{{this}}" width="400px" height="300px">
+    {{/each}}
+    {{/if }}
+    
+</div>
